@@ -1,36 +1,32 @@
 package com.learning;
 
-import java.sql.*;
-
-/*
- * 1. import package --> java.sql
- * 2. load and register driver --> com.mysql.jdbc.Driver
- * 3. create a connection
- * 4. create a statement
- * 5. execute the query
- * 6. process the results
- * 7. close
- */
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Language myLanguage = new Language("Russian");
+
+        LanguageDAO dao = new LanguageDAO();
 
         //create new language
-        //myLanguage.createLanguage();
-
-        //update language name by id
-        //myLanguage.updateLanguageName("Finnish", 4);
-
-        //delete language by ID
-        //myLanguage.deleteLanguageByID(4);
+        dao.openConnection();
+        Language myLanguage = new Language("English");
+        dao.createLanguage(myLanguage);
 
         //get language name by ID
-        //myLanguage.getLanguageNameByID(2);
+        dao.openConnection();
+        System.out.println(dao.getLanguageNameByID(4));
 
-        //get languages
-        myLanguage.getLanguages();
+        //delete language by ID
+        dao.openConnection();
+        dao.deleteLanguageByID(1);
 
+        myLanguage.setName("French");
+        myLanguage.setID(3);
+        dao.openConnection();
+        dao.updateLanguageNameByID(myLanguage);
+
+        // get languages
+        dao.openConnection();
+        dao.getLanguages();
     }
 }
+
